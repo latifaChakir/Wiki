@@ -25,9 +25,9 @@ class User implements Authenticable{
         if($result->rowCount() > 0){
             if(password_verify($password, $row["password"])){
                 if($row['role']=='admin'){
-                    header('Location: /register');
+                    header('Location: /admin');
                 }elseif($row['role']== 'author'){
-                    header('Location: /register');
+                    header('Location: /author');
                 }
 
             }
