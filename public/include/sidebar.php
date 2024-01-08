@@ -20,8 +20,8 @@
               <div class="menu_section">
                 <ul class="nav side-menu">
                 <li><a href="index.php"><i class="fa fa-tachometer"></i> Dashboard</a></li>
-                <li><a href="category.php"><i class="fa fa-list"></i>Categories</a></li>
-                <li><a href="/sales"><i class="fa fa-desktop"></i> Tags</a></li>
+                <li><a href="/category"><i class="fa fa-list"></i>Categories</a></li>
+                <li><a href="/tags"><i class="fa fa-desktop"></i> Tags</a></li>
                 </ul>
               </div>
 

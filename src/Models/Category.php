@@ -23,4 +23,26 @@ class Category {
             header('Location: /category');
         }
     }
+
+    public function deleteCategory($idCategory){
+        $query ="DELETE FROM category WHERE id='$idCategory'";
+        $result = $this->db->query($query);
+        if($result){
+            header('Location: /category');
+        }
+    }
+
+    public function getCategoryById($idCategory){
+        $query = "SELECT * FROM CATEGORY WHERE id='$idCategory'";
+        $result = $this->db->query($query);
+        $results=$result->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
+    }
+    public function updateCategory($idCategory,$nom){
+        $query = "UPDATE category SET nom='$nom' WHERE id='$idCategory'";
+        $result=$this->db->query($query);
+        if($result){
+            header("Location:/category");
+            }   
+         }
 }

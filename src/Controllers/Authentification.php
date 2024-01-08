@@ -37,4 +37,9 @@ class Authentification extends Controller
         $this->render('/register');
     }
 
+    public function logout(){
+        $user=new User();
+        $user->logout();
+    }
+
 }

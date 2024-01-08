@@ -33,7 +33,10 @@ class User implements Authenticable{
             }
         }
     }
-    public function logout(){}
+    public function logout(){
+        session_destroy();
+        header('location:/');
+    }
 
 
 }

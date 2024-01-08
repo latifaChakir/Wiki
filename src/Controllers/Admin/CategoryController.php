@@ -21,4 +21,29 @@ class CategoryController extends Controller
         $category=new Category();
         $category->addCategory($nom);
     }
+
+    public function deleteCategory(){
+        if(isset($_GET['id'])){
+            $idCategory = $_GET['id'];
+        }
+        $category =new Category();
+        $category->deleteCategory($idCategory);
+    }
+    public function getCategory(){
+        if(isset($_GET['id'])){
+            $idCategory = $_GET['id'];
+        }
+        $category =new Category();
+        $results=$category->getCategoryById($idCategory);
+        $this->render('admin/category/editCategory',['results'=>$results]);
+    }
+
+    public function updateCategory(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $nom =$_POST['nom'];
+            $idCategory = $_POST['id'];
+            $category=new Category();
+            $category->updateCategory($idCategory,$nom);
+        }
+    }
 }

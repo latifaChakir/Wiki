@@ -15,7 +15,7 @@
     <div class="">
       <div class="page-title">
         <div class="title_left">
-          <h3><i class="fa fa-medkit"></i> Wiki Category</h3>
+          <h3><i class="fa fa-medkit"></i> Tags</h3>
         </div>
       </div>
 
@@ -25,9 +25,9 @@
         <div class="col-md-12 col-sm-12  ">
           <div class="x_panel">
             <div class="x_title">
-              <h2>List of Categories</h2>
+              <h2>List of Tags</h2>
               <ul class="nav navbar-right panel_toolbox">
-                <a href="#addModal" class="btn btn-sm btn-info text-white" data-toggle="modal"><i class="fa fa-plus"></i> Add Category</a>
+                <a href="#addModal" class="btn btn-sm btn-info text-white" data-toggle="modal"><i class="fa fa-plus"></i> Add Tag</a>
 
               </ul>
               <div class="clearfix"></div>
@@ -36,17 +36,17 @@
               <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                   <tr>
-                    <th>Category Name</th>
+                    <th>Tag Name</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach ($categories as $category) : ?>
+                  <?php foreach ($tags as $tag) : ?>
                     <tr>
-                      <td><?php echo $category['nom']; ?></td>
+                      <td><?php echo $tag['nom']; ?></td>
                       <td>
-                        <a href="/editCategory?id=<?php echo $category['id']; ?>" class="btn btn-sm btn-success text-white"><i class="fa fa-edit"></i> edit</a>
-                        <a href="/deleteCategory?id=<?php echo $category['id']; ?>" class="btn btn-sm btn-danger text-white"><i class="fa fa-trash"></i> delete</a>
+                        <a href="/editTag?id=<?php echo $tag['id']; ?>" class="btn btn-sm btn-success text-white"><i class="fa fa-edit"></i> edit</a>
+                        <a href="/deleteTag?id=<?php echo $tag['id']; ?>" class="btn btn-sm btn-danger text-white"><i class="fa fa-trash"></i> delete</a>
                       </td>
                     </tr>
                   <?php endforeach ?>
@@ -63,14 +63,14 @@
   <div id="addModal" class="modal">
     <div class="modal-dialog modal-sm" role="document">
       <div class="modal-content">
-        <form id="employeeForm" method="post" action="/addCategory">
+        <form id="employeeForm" method="post" action="/addTag">
           <div class="modal-header">
-            <h4 class="modal-title">Add Category</h4>
+            <h4 class="modal-title">Add Tag</h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label>Category name</label>
+              <label>Tag name</label>
               <input type="text" name="nom" class="form-control" required>
             </div>
           </div>
