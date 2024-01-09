@@ -18,21 +18,29 @@ class User implements Authenticable{
         return $result;
     }
 
-    public function login($email,$password){
-        $query = "SELECT * FROM users WHERE email= '$email'";
-        $result=$this->db->query($query);
+    public function login($email, $password){
+        $query="SELECT * FROM users WHERE email= :email";
+        $result =$this->db->prepare($query);
+        $result->bindParam(':email', $email);
+        $result->execute();
+    
         $row = $result->fetch(PDO::FETCH_ASSOC);
+    
         if($result->rowCount() > 0){
             if(password_verify($password, $row["password"])){
-                if($row['role']=='admin'){
-                    header('Location: /admin');
-                }elseif($row['role']== 'author'){
-                    header('Location: /author');
+                $_SESSION["role"] = $row["role"];
+                // dump($_SESSION["role"]);
+                if($row['role'] == 'admin'){
+                    header('Location: /category');
+                    exit();
+                } elseif($row['role'] == 'author'){
+                    header('Location: /wiki');
+                    exit();
                 }
-
             }
         }
     }
+    
     public function logout(){
         session_destroy();
         header('location:/');

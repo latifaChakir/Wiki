@@ -7,6 +7,6 @@ class AuthorController extends Controller
 {
     public function index()
     {
-        $this->render('user/index');
+        $this->render('author/wiki/index');
     }
 }

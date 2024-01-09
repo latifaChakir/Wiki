@@ -26,6 +26,6 @@ $router->get('/deleteTag', TagController::class,'deleteTag');
 $router->get('/editTag', TagController::class,'getTag');
 $router->post('/updateTag', TagController::class,'updateTag');
 
-$router->get('/author', AuthorController::class,'index');
+$router->get('/wiki', AuthorController::class,'index');
 
 $router->dispatch();
