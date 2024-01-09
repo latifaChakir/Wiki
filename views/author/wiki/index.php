@@ -35,26 +35,28 @@
                   <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                       <thead>
                         <tr>
-                          <th>Medicine Name</th>
-                          <th>Quantity</th>
-                          <th>Price</th>
-                          <th>Total Amount</th>
+                          <th>Title</th>
+                          <th>Content</th>
+                          <th>Category</th>
+                          <th>Tags</th>
                           <th>Action</th>
                         </tr>
                       </thead>
 
 
                       <tbody>
+                        <?php foreach ($wikis as $wiki) : ?>
                         <tr>
-                          <td>Biogesic</td>
-                          <td>30</td>
-                          <td>Php7.00</td>
-                          <td>Php210.00</td>
+                          <td><?php echo $wiki['title'] ?></td>
+                          <td><?php echo $wiki['content'] ?></td>
+                          <td><?php echo $wiki['nom'] ?></td>
+                          <td><?php echo $wiki['nom'] ?></td>
                           <td>
                               <a class="btn btn-sm btn-success text-white"><i class="fa fa-edit"></i> edit</a>
                               <a class="btn btn-sm btn-danger text-white"><i class="fa fa-trash"></i> delete</a>
                           </td>
                         </tr>
+                        <?php endforeach?>
                       </tbody>
                     </table>
                   </div>

@@ -10,7 +10,9 @@ class WikiController extends Controller
 {
     public function index()
     {
-        $this->render('author/wiki/index');
+        $wiki=new Wiki();
+        $wikis=$wiki->selectAllWikis();
+        $this->render('author/wiki/index',['wikis'=>$wikis]);
     }
 
     public function getaddWiki(){
