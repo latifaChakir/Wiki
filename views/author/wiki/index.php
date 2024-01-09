@@ -27,7 +27,7 @@
                   <div class="x_title">
                     <h2><strong>SLS-101-21</strong> <small class="text-success">Nov 5, 2021</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
-                    <a href="#" class="btn btn-sm btn-info text-white"><i class="fa fa-plus"></i> Add Wiki</a>
+                    <a href="/addWiki" class="btn btn-sm btn-info text-white"><i class="fa fa-plus"></i> Add Wiki</a>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -65,6 +65,8 @@
         </div>
       </div>
     </div>
+
+    
 
     <?php include 'include/footer.php';?>
   </body>

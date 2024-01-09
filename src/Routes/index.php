@@ -4,7 +4,7 @@ session_start();
 use App\Router;
 use App\Controllers\UserController;
 use App\Controllers\Authentification;
-use App\Controllers\Author\AuthorController;
+use App\Controllers\Author\WikiController;
 use App\Controllers\Admin\CategoryController;
 use App\Controllers\Admin\TagController;
 
@@ -26,6 +26,8 @@ $router->get('/deleteTag', TagController::class,'deleteTag');
 $router->get('/editTag', TagController::class,'getTag');
 $router->post('/updateTag', TagController::class,'updateTag');
 
-$router->get('/wiki', AuthorController::class,'index');
+$router->get('/wiki', WikiController::class,'index');
+$router->get('/addWiki', WikiController::class,'getaddWiki');
+$router->post('/insertWiki', WikiController::class,'insertWiki');
 
 $router->dispatch();

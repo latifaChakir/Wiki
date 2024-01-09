@@ -19,7 +19,6 @@ class Authentification extends Controller
 
         }
 
-
     }
 
     public function register(){
@@ -32,7 +31,6 @@ class Authentification extends Controller
         }
     }
     
-
     public function getRegister(){
         $this->render('/register');
     }

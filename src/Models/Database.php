@@ -7,7 +7,7 @@ require_once  __DIR__ . '/../../config/config.php';
 use PDO;
 use PDOException;
 
-class Database
+class Database 
 {
     private static $instance;
     private $pdo;
