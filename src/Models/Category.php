@@ -1,48 +1,68 @@
 <?php
+
 namespace App\Models;
+
 use App\Models\Database;
 use PDO;
-class Category {
+
+class Category
+{
     public $db;
 
-    public function __construct(){
-        $this->db=Database::getInstance();
+    public function __construct()
+    {
+        $this->db = Database::getInstance();
     }
 
-    public function getAllCategories(){
+    public function getAllCategories()
+    {
         $query = "SELECT * FROM category";
         $result = $this->db->query($query);
         $categories = $result->fetchAll(PDO::FETCH_ASSOC);
         return $categories;
     }
 
-    public function addCategory($nom){
+    public function addCategory($nom)
+    {
         $query = "INSERT INTO category(nom) values('$nom')";
-        $result =$this->db->query($query);
-        if($result){
-            header('Location: /category');
-        }
-    }
-
-    public function deleteCategory($idCategory){
-        $query ="DELETE FROM category WHERE id='$idCategory'";
         $result = $this->db->query($query);
-        if($result){
+        if ($result) {
             header('Location: /category');
         }
     }
 
-    public function getCategoryById($idCategory){
+    public function deleteCategory($idCategory)
+    {
+        $query = "DELETE FROM category WHERE id='$idCategory'";
+        $result = $this->db->query($query);
+        if ($result) {
+            header('Location: /category');
+        }
+    }
+
+    public function getCategoryById($idCategory)
+    {
         $query = "SELECT * FROM CATEGORY WHERE id='$idCategory'";
         $result = $this->db->query($query);
-        $results=$result->fetchAll(PDO::FETCH_ASSOC);
+        $results = $result->fetchAll(PDO::FETCH_ASSOC);
         return $results;
     }
-    public function updateCategory($idCategory,$nom){
+    public function updateCategory($idCategory, $nom)
+    {
         $query = "UPDATE category SET nom='$nom' WHERE id='$idCategory'";
-        $result=$this->db->query($query);
-        if($result){
+        $result = $this->db->query($query);
+        if ($result) {
             header("Location:/category");
-            }   
-         }
+        }
+    }
+
+    public function getTotalCategories()
+    {
+        $query = "SELECT COUNT(*) as total_categories FROM category";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $res["total_categories"];
+
+    }
 }

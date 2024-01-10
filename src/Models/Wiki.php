@@ -25,7 +25,7 @@ class Wiki
         $sql = "SELECT *,category.nom as category_name,tags.nom as tag_name, wikis.id as wiki_id  FROM wikis_tags 
         JOIN wikis ON wikis_tags.wikis_id=wikis.id
         JOIN tags ON wikis_tags.tag_id=tags.id
-        join category ON wikis.category_id=category.id WHERE author_id=3 and archived=0";
+        join category ON wikis.category_id=category.id WHERE author_id=$author and archived=0";
         $res = $this->db->query($sql);
         $result = $res->fetchAll(PDO::FETCH_ASSOC);
         return $result;
@@ -77,10 +77,11 @@ class Wiki
 
     public function getWikiById($wikiId)
     {
+        $author = isset($_SESSION['id_author']) ? $_SESSION['id_author'] :'';
         $query = "SELECT *,category.nom as category_nam FROM wikis_tags 
         JOIN wikis ON wikis_tags.wikis_id=wikis.id
         JOIN tags ON wikis_tags.tag_id=tags.id
-        join category ON wikis.category_id=category.id WHERE author_id=3 and archived=0 and  wikis.id=$wikiId";
+        join category ON wikis.category_id=category.id WHERE author_id=$author and archived=0 and  wikis.id=$wikiId";
         $result = $this->db->query($query);
         $results = $result->fetchAll(PDO::FETCH_ASSOC);
         return $results;
@@ -131,7 +132,7 @@ class Wiki
         $result->bindParam(":id", $idWiki);
         $result->execute();
 
-        $sqlUpdateTags = "UPDATE wikis_tags SET tag_id = :tag_id WHERE wikis_id = :wiki_id";
+        $sqlUpdateTags = "UPDATE wikis_tags SET tag_id = :tag_id WHERE wikis_id=:wiki_id";
         $resultUpdateTags = $this->db->prepare($sqlUpdateTags);
 
         foreach ($tags as $tagId) {
@@ -142,4 +143,44 @@ class Wiki
             header("Location: /wiki");
         }
     }
+
+    public function getAllArticles(){
+        $sql = "SELECT *,category.nom as category_name,tags.nom as tag_name, wikis.id as wiki_id  FROM wikis_tags 
+        JOIN wikis ON wikis_tags.wikis_id=wikis.id
+        JOIN tags ON wikis_tags.tag_id=tags.id
+        join category ON wikis.category_id=category.id WHERE archived=0";
+        $res = $this->db->query($sql);
+        $results = $res->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
+    }
+
+    public function archive($id){
+        $sql = "UPDATE wikis SET archived=1 WHERE id=:id";
+        $res = $this->db->prepare($sql);
+        $res->bindParam(":id", $id);
+        $res->execute();
+        header("Location:/archives");
+
+    }
+
+    public function getTotalArticleArchive()
+    {
+        $query = "SELECT COUNT(*) as total_wikis_archives FROM wikis where archived=1";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $res["total_wikis_archives"];
+    }
+
+    public function getTotalArticleNonArchive()
+    {
+        $query = "SELECT COUNT(*) as total_n_archives FROM wikis where archived=0";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $res["total_n_archives"];
+    }
+
+   
+
 }

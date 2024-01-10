@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+use App\Controllers\Admin\ArchiveWikiController;
 use App\Router;
 use App\Controllers\UserController;
 use App\Controllers\Authentification;
@@ -32,5 +33,10 @@ $router->post('/insertWiki', WikiController::class,'insertWiki');
 $router->get('/editWiki', WikiController::class,'geteditWiki');
 $router->post('/updateWiki', WikiController::class,'updateWiki');
 $router->get('/deleteWiki', WikiController::class,'deleteWiki');
+
+$router->get('/archives', ArchiveWikiController::class,'archivesWiki');
+$router->get('/archiveArticle', ArchiveWikiController::class,'archiveArticle');
+$router->get('/dashboard', ArchiveWikiController::class,'afficheStatistique');
+
 
 $router->dispatch();
