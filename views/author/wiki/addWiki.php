@@ -73,7 +73,7 @@
                 </div>
                 <div class="item form-group">
                   <div class="col-md-8 col-sm-8 offset-md-2">
-                    <button class="btn btn-primary" type="button">Cancel</button>
+                    <a href="/wiki"><button class="btn btn-primary" type="button">Cancel</button></a>
                     <button type="submit" class="btn btn-success">Submit</button>
                   </div>
                 </div>

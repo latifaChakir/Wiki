@@ -49,11 +49,11 @@
                         <tr>
                           <td><?php echo $wiki['title'] ?></td>
                           <td><?php echo $wiki['content'] ?></td>
-                          <td><?php echo $wiki['nom'] ?></td>
-                          <td><?php echo $wiki['nom'] ?></td>
+                          <td><?php echo $wiki['category_name'] ?></td>
+                          <td><?php echo $wiki['tag_name'] ?></td>
                           <td>
-                              <a class="btn btn-sm btn-success text-white"><i class="fa fa-edit"></i> edit</a>
-                              <a class="btn btn-sm btn-danger text-white"><i class="fa fa-trash"></i> delete</a>
+                              <a href="/editWiki?id=<?php echo $wiki['wiki_id']; ?>" class="btn btn-sm btn-success text-white"><i class="fa fa-edit"></i> edit</a>
+                              <a href="/deleteWiki?id=<?php echo $wiki['wiki_id']; ?>" class="btn btn-sm btn-danger text-white"><i class="fa fa-trash"></i> delete</a>
                           </td>
                         </tr>
                         <?php endforeach?>

@@ -29,5 +29,8 @@ $router->post('/updateTag', TagController::class,'updateTag');
 $router->get('/wiki', WikiController::class,'index');
 $router->get('/addWiki', WikiController::class,'getaddWiki');
 $router->post('/insertWiki', WikiController::class,'insertWiki');
+$router->get('/editWiki', WikiController::class,'geteditWiki');
+$router->post('/updateWiki', WikiController::class,'updateWiki');
+$router->get('/deleteWiki', WikiController::class,'deleteWiki');
 
 $router->dispatch();

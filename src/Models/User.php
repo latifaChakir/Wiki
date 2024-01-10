@@ -29,6 +29,7 @@ class User implements Authenticable{
         if($result->rowCount() > 0){
             if(password_verify($password, $row["password"])){
                 $_SESSION["role"] = $row["role"];
+                $_SESSION["id_author"] = $row["id"];
                 // dump($_SESSION["role"]);
                 if($row['role'] == 'admin'){
                     header('Location: /category');
