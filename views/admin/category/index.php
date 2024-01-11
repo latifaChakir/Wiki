@@ -15,7 +15,7 @@
     <div class="">
       <div class="page-title">
         <div class="title_left">
-          <h3><i class="fa fa-medkit"></i> Wiki Category</h3>
+          <h3><i class="fa fa-folder"></i> Wiki Category</h3>
         </div>
       </div>
 
