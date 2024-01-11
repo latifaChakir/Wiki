@@ -1,3 +1,13 @@
+<head>
+	<?php include 'include/header.php'; ?>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Wikipedia Template</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/styles/styles.css">
+</head>
+
 <div class="article">
 	<?php
 	$uniqueArticles = array();
@@ -12,8 +22,10 @@
 	?>
 
 	<?php foreach ($uniqueArticles as $article) : ?>
-		
-		<a href="/detail?id=<?php echo $article['wiki_id']; ?>"><h1><?php echo $article['title']; ?></h1></a>
+
+		<a href="/detail?id=<?php echo $article['wiki_id']; ?>">
+			<h1><?php echo $article['title']; ?></h1>
+		</a>
 		<p class="siteSub">From Wikipedia, the free encyclopedia</p>
 		<p class="roleNote">this article belongs to the category <strong><?php echo $article['category_name']; ?></strong> </p>
 
@@ -39,18 +51,15 @@
 			</ul>
 		</div>
 	<?php endforeach; ?>
-	<div class="lavenderBox">
-		<div class="header">Panel title</div>
-		<div class="subtitle linklist"><a href="#">Lorem</a> <a href="#">Ipsum</a> <a href="#">Dolorestitas</a> </div>
-		<div class="linklist">
-			<a href="#">Percipit </a> <a href="#">Mnesarchum </a> <a href="#">Molestie </a> <a href="#">Phaedrum </a> <a href="#">Luptatum constituam </a> <a href="#">Habeo adipisci </a> <a href="#">Inani zril </a> <a href="#">Forensibus sea </a> <a href="#">Habeo adipisci </a> <a href="#">Minimum corrumpit </a> <a href="#">Regione suscipit </a> <a href="#">Has et partem </a><a href="#">Percipit </a> <a href="#">Mnesarchum </a> <a href="#">Molestie </a> <a href="#">Phaedrum </a> <a href="#">Luptatum constituam </a> <a href="#">Habeo adipisci </a> <a href="#">Inani zril </a> <a href="#">Vel nisl albucius </a> <a href="#">Habeo adipisci </a> <a href="#">Minimum corrumpit </a> <a href="#">Regione suscipit </a> <a href="#">Percipit maiestatis </a> <a href="#">Regione suscipit </a> <a href="#">Percipit maiestatis </a>
-		</div>
 
-		<div class="subtitle">Subtitle</div>
+
+	<div class="pagination">
+		<?php for ($page = 1; $page <= $totalPages; $page++) : ?>
+			<a href="/search?search=&page=<?php echo $page; ?>" <?php echo ($currentPage == $page) ? 'class="active"' : ''; ?>><?php echo $page; ?></a>
+
+		<?php endfor; ?>
 	</div>
 
-	<div class="categories">
-		<a href="#">Minimum corrumpit </a> <a href="#">Regione suscipit </a> <a href="#">Has et partem </a>
-	</div>
+
 
 </div>

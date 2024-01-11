@@ -131,7 +131,7 @@ class Wiki
         $sql = "SELECT *,category.nom as category_name,tags.nom as tag_name, wikis.id as wiki_id  FROM wikis_tags 
         JOIN wikis ON wikis_tags.wikis_id=wikis.id
         JOIN tags ON wikis_tags.tag_id=tags.id
-        join category ON wikis.category_id=category.id WHERE archived=0";
+        join category ON wikis.category_id=category.id WHERE archived=0 order by wikis.creation_date DESC";
         $res = $this->db->query($sql);
         $results = $res->fetchAll(PDO::FETCH_ASSOC);
         return $results;
@@ -164,18 +164,75 @@ class Wiki
         return $res["total_n_archives"];
     }
 
-    public function search($search) {
-        $query = "SELECT *, category.nom as category_name, tags.nom as tag_name, wikis.id as wiki_id  
-                   FROM wikis_tags 
-                   JOIN wikis ON wikis_tags.wikis_id = wikis.id
-                   JOIN tags ON wikis_tags.tag_id = tags.id
-                   JOIN category ON wikis.category_id = category.id 
-                   WHERE title LIKE '%$search%' or category.nom LIKE '%$search%' or tags.nom LIKE '%$search%'";
+    // public function search($search) {
+    //     $query = "SELECT *, category.nom as category_name, tags.nom as tag_name, wikis.id as wiki_id  
+    //                FROM wikis_tags 
+    //                JOIN wikis ON wikis_tags.wikis_id = wikis.id
+    //                JOIN tags ON wikis_tags.tag_id = tags.id
+    //                JOIN category ON wikis.category_id = category.id 
+    //                WHERE title LIKE '%$search%' or category.nom LIKE '%$search%' or tags.nom LIKE '%$search%' order by wikis.creation_date DESC";
         
-        $stmt = $this->db->query($query);
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $results;
-    }
+    //     $stmt = $this->db->query($query);
+    //     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    //     return $results;
+    // }
+
+
+    // ... (autres méthodes)
+
+public function search($search, $currentPage)
+{
+    $resultsPerPage = 5;
+    $offset = ($currentPage - 1) * $resultsPerPage;
+
+    $query = "SELECT *, category.nom as category_name, tags.nom as tag_name, wikis.id as wiki_id  
+               FROM wikis_tags 
+               JOIN wikis ON wikis_tags.wikis_id = wikis.id
+               JOIN tags ON wikis_tags.tag_id = tags.id
+               JOIN category ON wikis.category_id = category.id 
+               WHERE title LIKE :search OR category.nom LIKE :search OR tags.nom LIKE :search
+               ORDER BY wikis.creation_date DESC
+               LIMIT :offset, :resultsPerPage";
+
+    $stmt = $this->db->prepare($query);
+    $searchParam = "%$search%";
+    $stmt->bindParam(':search', $searchParam, PDO::PARAM_STR);
+    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+    $stmt->bindParam(':resultsPerPage', $resultsPerPage, PDO::PARAM_INT);
+
+    $stmt->execute();
+
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    $totalResults = $this->getTotalSearchResults($search); 
+    $totalPages = ceil($totalResults / $resultsPerPage);
+
+    return ['results' => $results, 'totalPages' => $totalPages];
+}
+
+public function getTotalSearchResults($search)
+{
+    $query = "SELECT COUNT(*) as total FROM wikis_tags 
+               JOIN wikis ON wikis_tags.wikis_id = wikis.id
+               JOIN tags ON wikis_tags.tag_id = tags.id
+               JOIN category ON wikis.category_id = category.id 
+               WHERE title LIKE :search OR category.nom LIKE :search OR tags.nom LIKE :search";
+    
+    $stmt = $this->db->prepare($query);
+    $searchParam = "%$search%";
+    $stmt->bindParam(':search', $searchParam, PDO::PARAM_STR);
+
+    $stmt->execute();
+
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['total'];
+}
+
+
+
+
+    
+    
     
     
 
