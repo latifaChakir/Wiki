@@ -33,18 +33,6 @@ class Wiki
 
     public function insertWiki($title, $content, $category, $tags, $imagePathInDatabase, $author)
     {
-        $uploadDir = __DIR__ . "/../../public/img/";
-
-        if (is_uploaded_file($_FILES['image_path']['tmp_name'])) {
-
-            $uploadFileName = uniqid() . basename($_FILES['image_path']['name']);
-            $uploadFile = $uploadDir . $uploadFileName;
-
-            move_uploaded_file($_FILES['image_path']['tmp_name'], $uploadFile);
-
-            $imagePathInDatabase = $uploadFileName;
-        }
-
         $sql = "INSERT INTO wikis (title, content, category_id,image_path,author_id) VALUES (:title, :content, :category_id, :image_path, :author_id)";
         $res = $this->db->prepare($sql);
         $res->bindParam(':title', $title);
@@ -70,18 +58,18 @@ class Wiki
                     $tagStmt->execute();
                 }
 
-                header("Location: /wiki");
+               
             }
         }
     }
 
     public function getWikiById($wikiId)
     {
-        $author = isset($_SESSION['id_author']) ? $_SESSION['id_author'] :'';
-        $query = "SELECT *,category.nom as category_nam FROM wikis_tags 
+        $query = "SELECT *,category.nom as category_nam,tags.nom as tag_name FROM wikis_tags 
         JOIN wikis ON wikis_tags.wikis_id=wikis.id
         JOIN tags ON wikis_tags.tag_id=tags.id
-        join category ON wikis.category_id=category.id WHERE author_id=$author and archived=0 and  wikis.id=$wikiId";
+        JOIN users ON wikis.author_id=users.id
+        join category ON wikis.category_id=category.id WHERE archived=0 and  wikis.id=$wikiId";
         $result = $this->db->query($query);
         $results = $result->fetchAll(PDO::FETCH_ASSOC);
         return $results;
@@ -103,11 +91,6 @@ class Wiki
         $result = $this->db->prepare($query);
         $result->bindParam(":wikis_id", $idWiki);
         $result->execute();
-
-        if ($result) {
-            header("Location: /wiki");
-            exit();
-        }
     }
 
     public function updateWiki($title, $content, $category, $tags, $idWiki)
@@ -140,7 +123,7 @@ class Wiki
             $resultUpdateTags->bindParam(":tag_id", $tagId);
             $resultUpdateTags->execute();
 
-            header("Location: /wiki");
+            
         }
     }
 
@@ -159,7 +142,7 @@ class Wiki
         $res = $this->db->prepare($sql);
         $res->bindParam(":id", $id);
         $res->execute();
-        header("Location:/archives");
+       
 
     }
 

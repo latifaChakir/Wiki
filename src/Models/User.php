@@ -14,7 +14,6 @@ class User implements Authenticable{
         $Hashedpassword = password_hash($password, PASSWORD_DEFAULT);
         $query = "INSERT INTO users (username,password,email,role) VALUES ('$username','$Hashedpassword', '$email','author')";
         $result = $this->db->query($query);
-        header('location:/login');
         return $result;
     }
 
@@ -28,24 +27,13 @@ class User implements Authenticable{
     
         if($result->rowCount() > 0){
             if(password_verify($password, $row["password"])){
-                $_SESSION["role"] = $row["role"];
-                $_SESSION["id_author"] = $row["id"];
-                // dump($_SESSION["role"]);
-                if($row['role'] == 'admin'){
-                    header('Location: /category');
-                    exit();
-                } elseif($row['role'] == 'author'){
-                    header('Location: /wiki');
-                    exit();
-                }
+               return $row;
             }
+            return false;
         }
     }
     
-    public function logout(){
-        session_destroy();
-        header('location:/');
-    }
+    
 
 
 }

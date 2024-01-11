@@ -29,7 +29,7 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
-              <form method="post" action="/updateTag">
+              <form method="post" action="/updateCategory">
                 <div class="modal-header">
                   <h4 class="modal-title">Edit Category</h4>
                 </div>

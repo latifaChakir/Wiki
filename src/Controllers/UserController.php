@@ -20,4 +20,13 @@ class UserController extends Controller
         $results = $model->search($search);
         $this->render('search', ['articles' => $results]);
     }
+
+    public function afficherDetail(){
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+        }
+        $detail = new Wiki();
+        $details=$detail->getWikiById($id);
+        $this->render('detailwiki',['article' => $details]);
+    }
 }

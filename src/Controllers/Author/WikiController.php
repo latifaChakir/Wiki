@@ -25,14 +25,25 @@ class WikiController extends Controller
 
     public function insertWiki(){
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['title'])){
+            $uploadDir = __DIR__ . "/../../../public/img/";
             $title = $_POST['title'];
             $content = $_POST['content'];
             $category = $_POST['category_id'];
             $tags = isset($_POST['tags']) ? $_POST['tags'] : array(); 
-            $image_path = $_POST['image_path'];
+
+            if (is_uploaded_file($_FILES['image_path']['tmp_name'])) {
+    
+                $uploadFileName = uniqid() . basename($_FILES['image_path']['name']);
+                $uploadFile = $uploadDir . $uploadFileName;
+    
+                move_uploaded_file($_FILES['image_path']['tmp_name'], $uploadFile);
+    
+                $imagePathInDatabase = $uploadFileName;
+            }
             $author = isset($_SESSION['id_author']) ? $_SESSION['id_author'] :'';
             $wiki = new Wiki();
-            $wiki->insertWiki($title, $content, $category, $tags,$image_path,$author);
+            $wiki->insertWiki($title, $content, $category, $tags,$imagePathInDatabase,$author);
+            header("Location: /wiki");
         }
     }
 
@@ -68,6 +79,7 @@ public function updateWiki(){
        
         $wiki = new Wiki();
         $wiki->updateWiki($title, $content, $category, $tags,$idWiki);
+        header("Location: /wiki");
 
 
     }
@@ -80,6 +92,7 @@ public function deleteWiki(){
     }
     $delwiki=new Wiki();
     $delwiki->deleteWiki($idWiki);
+    header("Location: /wiki");
 }
     
 }

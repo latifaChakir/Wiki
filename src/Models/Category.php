@@ -26,18 +26,14 @@ class Category
     {
         $query = "INSERT INTO category(nom) values('$nom')";
         $result = $this->db->query($query);
-        if ($result) {
-            header('Location: /category');
-        }
+        
     }
 
     public function deleteCategory($idCategory)
     {
         $query = "DELETE FROM category WHERE id='$idCategory'";
         $result = $this->db->query($query);
-        if ($result) {
-            header('Location: /category');
-        }
+       
     }
 
     public function getCategoryById($idCategory)
@@ -51,9 +47,7 @@ class Category
     {
         $query = "UPDATE category SET nom='$nom' WHERE id='$idCategory'";
         $result = $this->db->query($query);
-        if ($result) {
-            header("Location:/category");
-        }
+        
     }
 
     public function getTotalCategories()

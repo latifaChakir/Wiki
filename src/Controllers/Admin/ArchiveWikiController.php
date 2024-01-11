@@ -18,6 +18,7 @@ class ArchiveWikiController extends Controller {
         }
         $archive = new Wiki();
         $archive->archive($id);
+        header("Location:/archives");
     }
 
     public function afficheStatistique(){

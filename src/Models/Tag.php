@@ -26,18 +26,14 @@ class Tag
     {
         $query = "INSERT INTO tags(nom) values('$nom')";
         $result = $this->db->query($query);
-        if ($result) {
-            header('Location: /tags');
-        }
+        
     }
 
     public function deleteTag($idTag)
     {
         $query = "DELETE FROM tags WHERE id='$idTag'";
         $result = $this->db->query($query);
-        if ($result) {
-            header('Location: /tags');
-        }
+       
     }
 
     public function getTagById($idTag)
@@ -51,9 +47,7 @@ class Tag
     {
         $query = "UPDATE tags SET nom='$nom' WHERE id='$idTag'";
         $result = $this->db->query($query);
-        if ($result) {
-            header("Location:/tags");
-        }
+        
     }
 
     public function getTotalTages()

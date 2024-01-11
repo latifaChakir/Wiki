@@ -20,6 +20,7 @@ class CategoryController extends Controller
         }
         $category=new Category();
         $category->addCategory($nom);
+        header('Location: /category');
     }
 
     public function deleteCategory(){
@@ -28,6 +29,7 @@ class CategoryController extends Controller
         }
         $category =new Category();
         $category->deleteCategory($idCategory);
+        header('Location: /category');
     }
     public function getCategory(){
         if(isset($_GET['id'])){
@@ -44,6 +46,7 @@ class CategoryController extends Controller
             $idCategory = $_POST['id'];
             $category=new Category();
             $category->updateCategory($idCategory,$nom);
+            header('Location: /category');
         }
     }
 }

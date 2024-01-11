@@ -18,6 +18,7 @@ class TagController extends Controller
         }
         $tag=new Tag();
         $tag->addTag($nom);
+        header('Location: /tags');
     }
 
     public function deleteTag(){
@@ -26,6 +27,7 @@ class TagController extends Controller
         }
         $tag =new Tag();
         $tag->deleteTag($idTag);
+        header('Location: /tags');
     }
     public function getTag(){
         if(isset($_GET['id'])){
@@ -42,6 +44,7 @@ class TagController extends Controller
             $idTag = $_POST['id'];
             $tag=new Tag();
             $tag->updateTag($idTag,$nom);
+            header('Location: /tags');
         }
     }
 
