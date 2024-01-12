@@ -35,7 +35,7 @@
 			</nav>
 			<div class="mainsection">
 				<div class="headerLinks">
-					<span class="user">Not logged in</span> <a href="#">Talk</a> <a href="#">Contributions</a> <a href="#">Create account</a> <a href="/login">Log in</a>
+					<span class="user">Not logged in</span> <a href="#">Talk</a> <a href="#">Contributions</a> <a href="/register">Create account</a> <a href="/login">Log in</a>
 				</div>
 				<div class="tabs clearfix">
 					<div class="tabsLeft">
@@ -61,7 +61,7 @@
 
 
 				</div>
-				
+
 
 				<div class="lavenderBox">
 					<div class="header">Panel title</div>
@@ -90,27 +90,7 @@
 			</div>
 		</div>
 
-
-		<script>
-			const search = document.getElementById('searchInput');
-			const container = document.getElementsByClassName('article');
-
-			fetchSearch();
-
-			search.addEventListener("keyup", function() {
-				fetchSearch();
-			});
-
-			function fetchSearch() {
-				console.log(search.value);
-				fetch(`/search?search=${search.value}`).then(res => {
-					return res.text();
-				}).then(data => {
-					// console.log(data);
-					container[0].innerHTML = data;
-				});
-			}
-		</script>
+		<script src="/build/js/script.js"></script>
 
 
 </body>

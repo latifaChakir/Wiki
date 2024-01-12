@@ -178,8 +178,6 @@ class Wiki
     // }
 
 
-    // ... (autres méthodes)
-
 public function search($search, $currentPage)
 {
     $resultsPerPage = 5;
@@ -228,14 +226,5 @@ public function getTotalSearchResults($search)
     return $result['total'];
 }
 
-
-
-
-    
-    
-    
-    
-
-   
 
 }
