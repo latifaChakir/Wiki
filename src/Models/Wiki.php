@@ -96,16 +96,14 @@ class Wiki
     public function updateWiki($title, $content, $category, $tags, $idWiki)
     {
         $uploadDir = __DIR__ . "/../../public/img/";
-
-        if (is_uploaded_file($_FILES['image_path']['tmp_name'])) {
-
-            $uploadFileName = uniqid() . basename($_FILES['image_path']['name']);
-            $uploadFile = $uploadDir . $uploadFileName;
-
-            move_uploaded_file($_FILES['image_path']['tmp_name'], $uploadFile);
-
-            $imagePathInDatabase = $uploadFileName;
+    
+        if (isset($_FILES['image_path']['tmp_name']) && is_uploaded_file($_FILES['image_path']['tmp_name'])) {
+            // Existing image path should be handled as before
+        } else {
+            // If no new image is uploaded, retain the existing image path
+            $imagePathInDatabase = $_POST['existing_image_path'];
         }
+    
         $sql = "UPDATE wikis SET title = :title, content = :content, category_id = :category_id, image_path = :image_path, update_date = NOW() WHERE id = :id";
         $result = $this->db->prepare($sql);
         $result->bindParam(":title", $title);
@@ -114,18 +112,22 @@ class Wiki
         $result->bindParam(":image_path", $imagePathInDatabase);
         $result->bindParam(":id", $idWiki);
         $result->execute();
-
-        $sqlUpdateTags = "UPDATE wikis_tags SET tag_id = :tag_id WHERE wikis_id=:wiki_id";
-        $resultUpdateTags = $this->db->prepare($sqlUpdateTags);
-
+    
+        $sqlDeleteTags = "DELETE FROM wikis_tags WHERE wikis_id = :wiki_id";
+        $resultDeleteTags = $this->db->prepare($sqlDeleteTags);
+        $resultDeleteTags->bindParam(":wiki_id", $idWiki);
+        $resultDeleteTags->execute();
+    
+        $sqlInsertTags = "INSERT INTO wikis_tags (wikis_id, tag_id) VALUES (:wiki_id, :tag_id)";
+        $resultInsertTags = $this->db->prepare($sqlInsertTags);
+    
         foreach ($tags as $tagId) {
-            $resultUpdateTags->bindParam(":wiki_id", $idWiki);
-            $resultUpdateTags->bindParam(":tag_id", $tagId);
-            $resultUpdateTags->execute();
-
-            
+            $resultInsertTags->bindParam(":wiki_id", $idWiki);
+            $resultInsertTags->bindParam(":tag_id", $tagId);
+            $resultInsertTags->execute();
         }
     }
+    
 
     public function getAllArticles(){
         $sql = "SELECT *,category.nom as category_name,tags.nom as tag_name, wikis.id as wiki_id  FROM wikis_tags 

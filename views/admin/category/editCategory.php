@@ -3,7 +3,7 @@
 <?php include 'include/header.php'; ?>
 
 <body class="nav-md">
-  <?php include 'include/sidebar.php'; ?>
+  <?php $page='category'; include 'include/sidebar.php'; ?>
   <?php include 'include/menufooter.php'; ?>
   </div>
   </div>

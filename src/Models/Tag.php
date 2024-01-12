@@ -23,18 +23,30 @@ class Tag
     }
 
     public function addTag($nom)
-    {
-        $query = "INSERT INTO tags(nom) values('$nom')";
-        $result = $this->db->query($query);
-        
-    }
+{
+    $query = "INSERT INTO tags(nom) VALUES(:nom)";
+    $result = $this->db->prepare($query);
+    $result->bindParam(':nom', $nom);
+    $result->execute();
+}
 
-    public function deleteTag($idTag)
-    {
-        $query = "DELETE FROM tags WHERE id='$idTag'";
-        $result = $this->db->query($query);
-       
-    }
+public function deleteTag($idTag)
+{
+    $query = "DELETE FROM tags WHERE id = :idTag";
+    $result = $this->db->prepare($query);
+    $result->bindParam(':idTag', $idTag);
+    $result->execute();
+}
+
+public function updateTag($idTag, $nom)
+{
+    $query = "UPDATE tags SET nom = :nom WHERE id = :idTag";
+    $result = $this->db->prepare($query);
+    $result->bindParam(':nom', $nom);
+    $result->bindParam(':idTag', $idTag);
+    $result->execute();
+}
+
 
     public function getTagById($idTag)
     {
@@ -43,19 +55,14 @@ class Tag
         $results = $result->fetchAll(PDO::FETCH_ASSOC);
         return $results;
     }
-    public function updateTag($idTag, $nom)
-    {
-        $query = "UPDATE tags SET nom='$nom' WHERE id='$idTag'";
-        $result = $this->db->query($query);
-        
-    }
+  
 
     public function getTotalTages()
     {
         $query = "SELECT COUNT(*) as total_tags FROM tags";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
-        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $this->db->prepare($query);
+        $result->execute();
+        $res = $result->fetch(PDO::FETCH_ASSOC);
         return $res["total_tags"];
     }
 }

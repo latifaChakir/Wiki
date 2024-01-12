@@ -3,7 +3,8 @@
 <?php include 'include/header.php'; ?>
 
 <body class="nav-md">
-  <?php include 'include/sidebar.php'; ?>
+  <?php $page='tag';
+  include 'include/sidebar.php'; ?>
   <?php include 'include/menufooter.php'; ?>
   </div>
   </div>
@@ -15,7 +16,7 @@
     <div class="">
       <div class="page-title">
         <div class="title_left">
-          <h3><i class="fa fa-medkit"></i> Tags</h3>
+          <h3><i class="fa fa-tags"></i> Tags</h3>
         </div>
       </div>
 

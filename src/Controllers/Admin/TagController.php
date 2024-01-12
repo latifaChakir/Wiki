@@ -14,7 +14,7 @@ class TagController extends Controller
 
     public function addTag(){
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['nom'])){
-            $nom = $_POST['nom'];
+            $nom = htmlspecialchars($_POST['nom']);
         }
         $tag=new Tag();
         $tag->addTag($nom);
@@ -40,7 +40,7 @@ class TagController extends Controller
 
     public function updateTag(){
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $nom =$_POST['nom'];
+            $nom =htmlspecialchars($_POST['nom']);
             $idTag = $_POST['id'];
             $tag=new Tag();
             $tag->updateTag($idTag,$nom);

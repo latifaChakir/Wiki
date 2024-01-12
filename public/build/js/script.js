@@ -24,7 +24,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function validatePassword(password) {
-        var regex = /^[a-zA-Z0-9]+$/;
+        var regex = /^[\w@!#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/;
+
         return regex.test(password);
     }
 
@@ -76,3 +77,7 @@ const search = document.getElementById('searchInput');
 					container[0].innerHTML = data;
 				});
 			}
+
+
+           
+            

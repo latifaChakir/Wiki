@@ -26,9 +26,9 @@ class WikiController extends Controller
     public function insertWiki(){
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['title'])){
             $uploadDir = __DIR__ . "/../../../public/img/";
-            $title = $_POST['title'];
-            $content = $_POST['content'];
-            $category = $_POST['category_id'];
+            $title = htmlspecialchars($_POST['title']);
+            $content = htmlspecialchars($_POST['content']);
+            $category = htmlspecialchars($_POST['category_id']);
             $tags = isset($_POST['tags']) ? $_POST['tags'] : array(); 
 
             if (is_uploaded_file($_FILES['image_path']['tmp_name'])) {
@@ -69,22 +69,21 @@ class WikiController extends Controller
     $this->render('author/wiki/editWiki', ['wikis' => $combinedWikiInfo, 'categories' => $categories,'tags'=>$tags,'tagg'=>$tagg]);
 }
 
-public function updateWiki(){
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+public function updateWiki() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $idWiki = $_POST['id'];
-        $title = $_POST['title'];
-        $content = $_POST['content'];
-        $category = $_POST['category_id'];
-        $tags = isset($_POST['tags']) ? $_POST['tags'] : array(); 
-       
+        $title = htmlspecialchars($_POST['title']);
+        $content = htmlspecialchars($_POST['content']);
+        $category = htmlspecialchars($_POST['category_id']);
+        $tags = isset($_POST['tags']) ? $_POST['tags'] : array();
+
         $wiki = new Wiki();
-        $wiki->updateWiki($title, $content, $category, $tags,$idWiki);
+        $wiki->updateWiki($title, $content, $category,$tags, $idWiki);
+
         header("Location: /wiki");
-
-
     }
-
 }
+
 
 public function deleteWiki(){
     if(isset($_GET['id'])){

@@ -24,17 +24,29 @@ class Category
 
     public function addCategory($nom)
     {
-        $query = "INSERT INTO category(nom) values('$nom')";
-        $result = $this->db->query($query);
-        
+        $query = "INSERT INTO category(nom) VALUES(:nom)";
+        $res = $this->db->prepare($query);
+        $res->bindParam(':nom', $nom);
+        $res->execute();
     }
 
     public function deleteCategory($idCategory)
     {
-        $query = "DELETE FROM category WHERE id='$idCategory'";
-        $result = $this->db->query($query);
-       
+        $query = "DELETE FROM category WHERE id = :idCategory";
+        $res = $this->db->prepare($query);
+        $res->bindParam(':idCategory', $idCategory);
+        $res->execute();
     }
+
+    public function updateCategory($idCategory, $nom)
+    {
+        $query = "UPDATE category SET nom = :nom WHERE id = :idCategory";
+        $res = $this->db->prepare($query);
+        $res->bindParam(':nom', $nom);
+        $res->bindParam(':idCategory', $idCategory);
+        $res->execute();
+    }
+
 
     public function getCategoryById($idCategory)
     {
@@ -43,12 +55,7 @@ class Category
         $results = $result->fetchAll(PDO::FETCH_ASSOC);
         return $results;
     }
-    public function updateCategory($idCategory, $nom)
-    {
-        $query = "UPDATE category SET nom='$nom' WHERE id='$idCategory'";
-        $result = $this->db->query($query);
-        
-    }
+
 
     public function getTotalCategories()
     {
@@ -57,6 +64,5 @@ class Category
         $stmt->execute();
         $res = $stmt->fetch(PDO::FETCH_ASSOC);
         return $res["total_categories"];
-
     }
 }

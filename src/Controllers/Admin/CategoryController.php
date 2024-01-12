@@ -16,7 +16,7 @@ class CategoryController extends Controller
 
     public function addCategory(){
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['nom'])){
-            $nom = $_POST['nom'];
+            $nom = htmlspecialchars($_POST['nom']);
         }
         $category=new Category();
         $category->addCategory($nom);
@@ -42,7 +42,7 @@ class CategoryController extends Controller
 
     public function updateCategory(){
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $nom =$_POST['nom'];
+            $nom =htmlspecialchars($_POST['nom']);
             $idCategory = $_POST['id'];
             $category=new Category();
             $category->updateCategory($idCategory,$nom);
