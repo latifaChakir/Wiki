@@ -71,6 +71,17 @@ class WikiController extends Controller
 
 public function updateWiki() {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $uploadDir = __DIR__ . "/../../../public/img/";
+        
+        if (is_uploaded_file($_FILES['image_path']['tmp_name'])) {
+    
+            $uploadFileName = uniqid() . basename($_FILES['image_path']['name']);
+            $uploadFile = $uploadDir . $uploadFileName;
+
+            move_uploaded_file($_FILES['image_path']['tmp_name'], $uploadFile);
+
+            $imagePathInDatabase = $uploadFileName;
+        }
         $idWiki = $_POST['id'];
         $title = htmlspecialchars($_POST['title']);
         $content = htmlspecialchars($_POST['content']);
@@ -78,7 +89,7 @@ public function updateWiki() {
         $tags = isset($_POST['tags']) ? $_POST['tags'] : array();
 
         $wiki = new Wiki();
-        $wiki->updateWiki($title, $content, $category,$tags, $idWiki);
+        $wiki->updateWiki($title, $content, $category,$tags, $idWiki,$imagePathInDatabase);
 
         header("Location: /wiki");
     }

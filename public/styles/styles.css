@@ -149,6 +149,69 @@ html {
 	font-size: 1em;
 	line-height: 1.4;
 }
+
+/* Style de base pour la pagination */
+.pagination {
+	display: flex;
+	justify-content: flex-end;
+	list-style: none;
+	padding: 0;
+	margin: 20px 0;
+	margin-top: 50px;
+  }
+  
+  .pagination li {
+	margin-right: 10px;
+  }
+  
+  .pagination a {
+	display: block;
+	padding: 8px 12px;
+	text-decoration: none;
+	color: #333;
+	background-color: #f8f9fa;
+	border: 1px solid #dee2e6;
+	border-radius: 4px;
+  }
+  
+  .pagination a:hover {
+	background-color: #525457;
+	color: #fff;
+  }
+  
+  /* Style pour la pagination active */
+  .pagination .active a {
+	background-color: #4f5963;
+	color: #fff;
+  }
+  
+  /* Style pour la pagination désactivée */
+  .pagination .disabled a {
+	pointer-events: none;
+	background-color: #ddd;
+	color: #aaa;
+  }
+  
+  /* Style pour la pagination des liens de bordure (première et dernière page) */
+  .pagination .page-link:first-child,
+  .pagination .page-link:last-child {
+	border-radius: 4px;
+  }
+  
+  /* Style pour la pagination des liens de bordure actifs (première et dernière page) */
+  .pagination .page-item.active:first-child a,
+  .pagination .page-item.active:last-child a {
+	border-radius: 4px;
+  }
+  
+  /* Style pour la pagination des liens de bordure désactivés (première et dernière page) */
+  .pagination .page-item.disabled:first-child a,
+  .pagination .page-item.disabled:last-child a {
+	pointer-events: none;
+	background-color: #ddd;
+	color: #aaa;
+  }
+  
 ::-moz-selection {
 	background: #b3d4fc;
 	text-shadow: none;

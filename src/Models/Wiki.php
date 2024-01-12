@@ -93,16 +93,8 @@ class Wiki
         $result->execute();
     }
 
-    public function updateWiki($title, $content, $category, $tags, $idWiki)
+    public function updateWiki($title, $content, $category, $tags, $idWiki,$imagePathInDatabase)
     {
-        $uploadDir = __DIR__ . "/../../public/img/";
-    
-        if (isset($_FILES['image_path']['tmp_name']) && is_uploaded_file($_FILES['image_path']['tmp_name'])) {
-            // Existing image path should be handled as before
-        } else {
-            // If no new image is uploaded, retain the existing image path
-            $imagePathInDatabase = $_POST['existing_image_path'];
-        }
     
         $sql = "UPDATE wikis SET title = :title, content = :content, category_id = :category_id, image_path = :image_path, update_date = NOW() WHERE id = :id";
         $result = $this->db->prepare($sql);
