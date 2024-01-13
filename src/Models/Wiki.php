@@ -158,23 +158,9 @@ class Wiki
         return $res["total_n_archives"];
     }
 
-    // public function search($search) {
-    //     $query = "SELECT *, category.nom as category_name, tags.nom as tag_name, wikis.id as wiki_id  
-    //                FROM wikis_tags 
-    //                JOIN wikis ON wikis_tags.wikis_id = wikis.id
-    //                JOIN tags ON wikis_tags.tag_id = tags.id
-    //                JOIN category ON wikis.category_id = category.id 
-    //                WHERE title LIKE '%$search%' or category.nom LIKE '%$search%' or tags.nom LIKE '%$search%' order by wikis.creation_date DESC";
-        
-    //     $stmt = $this->db->query($query);
-    //     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    //     return $results;
-    // }
-
-
 public function search($search, $currentPage)
 {
-    $resultsPerPage = 5;
+    $resultsPerPage = 7;
     $offset = ($currentPage - 1) * $resultsPerPage;
 
     $query = "SELECT *, category.nom as category_name, tags.nom as tag_name, wikis.id as wiki_id  

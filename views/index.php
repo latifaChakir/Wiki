@@ -18,7 +18,7 @@
 			<nav class="col-md-2 d-none d-md-block sidebar">
 				<div class="sidebar-sticky">
 					<div class="logo">
-						<a href="/"><img src='img/logo.png' alt="logo" class="img-fluid"></a>
+						<a href="/"><img src='img/logo1.png' alt="logo" class="img-fluid"></a>
 					</div>
 					<ul class="nav flex-column">
 						<li class="nav-item"><a class="nav-link" href="#">Main page</a></li>
