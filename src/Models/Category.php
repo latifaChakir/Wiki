@@ -16,7 +16,7 @@ class Category
 
     public function getAllCategories()
     {
-        $query = "SELECT * FROM category";
+        $query = "SELECT * FROM category order by created_at DESC";
         $result = $this->db->query($query);
         $categories = $result->fetchAll(PDO::FETCH_ASSOC);
         return $categories;
