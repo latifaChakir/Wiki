@@ -1,17 +1,22 @@
 <?php
 
 namespace App\Controllers\Admin;
+use App\Controllers\Authentification;
 use App\Models\Tag;
 
 use App\Controller;
 class TagController extends Controller
 {
     public function getTags(){
+        $user = new Authentification();
+        if (!$user->is_admin()) {
+            $this->render('403');
+        } else {
         $tag=new Tag();
         $tags=$tag->getAllTags();
         $this->render('admin/tag/index',['tags' => $tags]);
     }
-
+    }
     public function addTag(){
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['nom'])){
             $nom = htmlspecialchars($_POST['nom']);

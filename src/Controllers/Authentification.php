@@ -56,4 +56,20 @@ class Authentification extends Controller
         header('location:/');
     }
 
+    public function is_admin()
+    {
+        if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
+            return true;
+        }
+        return false;
+    }
+
+    public function is_author()
+    {
+        if (isset($_SESSION['role']) && $_SESSION['role'] == 'author') {
+            return true;
+        }
+        return false;
+    }
+    
 }

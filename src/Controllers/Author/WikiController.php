@@ -6,13 +6,19 @@ use App\Controller;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\Wiki;
+use App\Controllers\Authentification;
 class WikiController extends Controller
 {
     public function index()
     {
+        $user = new Authentification();
+        if (!$user->is_author()) {
+            $this->render('403');
+        } else {
         $wiki=new Wiki();
         $wikis=$wiki->selectAllWikis();
         $this->render('author/wiki/index',['wikis'=>$wikis]);
+        }
     }
 
     public function getaddWiki(){

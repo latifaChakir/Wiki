@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Admin;
 use App\Models\Category;
+use App\Controllers\Authentification;
 
 use App\Controller;
 class CategoryController extends Controller
@@ -9,10 +10,15 @@ class CategoryController extends Controller
     
 
     public function getCategories(){
+        $user = new Authentification();
+        if (!$user->is_admin()) {
+            $this->render('403');
+        } else {
         $category=new Category();
         $categories=$category->getAllCategories();
         $this->render('admin/category/index',['categories' => $categories]);
     }
+}
 
     public function addCategory(){
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['nom'])){

@@ -1,16 +1,22 @@
 <?php 
 namespace App\Controllers\Admin;
 use App\Controller;
+use App\Controllers\Authentification;
 use App\Models\Wiki;
 use App\Models\Category;
 use App\Models\tag;
 class ArchiveWikiController extends Controller {
 
     public function archivesWiki(){
+        $user = new Authentification();
+        if (!$user->is_admin()) {
+            $this->render('403');
+        } else {
         $article = new Wiki();
         $articles=$article->getAllArticles();
         $this->render('admin/archive',['articles'=>$articles]);
     }
+}
 
     public function archiveArticle(){
         if(isset($_GET['id'])){
