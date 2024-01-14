@@ -36,7 +36,8 @@ $router->get('/deleteWiki', WikiController::class,'deleteWiki');
 
 $router->get('/archives', ArchiveWikiController::class,'archivesWiki');
 $router->get('/archiveArticle', ArchiveWikiController::class,'archiveArticle');
-$router->get('/dashboard', ArchiveWikiController::class,'afficheStatistique');
+$router->get('/deactivateArticle', ArchiveWikiController::class,'archiveArticle');
+$router->get('/deactivateArticle', ArchiveWikiController::class,'desarchiveArticle');
 $router->get('/search', UserController::class,'search');
 $router->get('/detail', UserController::class,'afficherDetail');
 

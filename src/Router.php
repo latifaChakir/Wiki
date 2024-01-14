@@ -3,7 +3,7 @@
 namespace App;
 
 use App\Controller;
-use Symfony\Component\VarDumper\VarDumper;
+
 
 class Router extends Controller
 {
@@ -14,8 +14,7 @@ class Router extends Controller
     {
 
         $this->routes[$method][$route] = ['controller' => $controller, 'action' => $action];
-        //  dump($this->routes);
-        // echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>';
+       
     }
 
     public function get($route, $controller, $action)
@@ -32,7 +31,6 @@ class Router extends Controller
     {
         $uri = strtok($_SERVER['REQUEST_URI'], '?');
         $method =  $_SERVER['REQUEST_METHOD'];
-        // dump(array_key_exists($uri, $this->routes[$method]));
         if (array_key_exists($uri, $this->routes[$method])) {
             $controller = $this->routes[$method][$uri]['controller'];
             $action = $this->routes[$method][$uri]['action'];

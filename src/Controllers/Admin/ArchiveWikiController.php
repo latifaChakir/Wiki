@@ -13,7 +13,7 @@ class ArchiveWikiController extends Controller {
             $this->render('403');
         } else {
         $article = new Wiki();
-        $articles=$article->getAllArticles();
+        $articles=$article->getAllArticlesForAdmin();
         $this->render('admin/archive',['articles'=>$articles]);
     }
 }
@@ -25,6 +25,15 @@ class ArchiveWikiController extends Controller {
         $archive = new Wiki();
         $archive->archive($id);
         header("Location:/archives");
+    }
+    public function desarchiveArticle(){
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+        }
+        $archive = new Wiki();
+        $archive->desarchive($id);
+        header("Location:/archives");
+
     }
 
     public function afficheStatistique(){

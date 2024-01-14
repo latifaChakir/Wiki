@@ -131,6 +131,16 @@ class Wiki
         return $results;
     }
 
+    public function getAllArticlesForAdmin(){
+        $sql = "SELECT *,category.nom as category_name,tags.nom as tag_name, wikis.id as wiki_id  FROM wikis_tags 
+        JOIN wikis ON wikis_tags.wikis_id=wikis.id
+        JOIN tags ON wikis_tags.tag_id=tags.id
+        join category ON wikis.category_id=category.id ";
+        $res = $this->db->query($sql);
+        $results = $res->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
+    }
+
     public function archive($id){
         $sql = "UPDATE wikis SET archived=1 WHERE id=:id";
         $res = $this->db->prepare($sql);
@@ -139,6 +149,15 @@ class Wiki
        
 
     }
+    public function desarchive($id){
+        $sql = "UPDATE wikis SET archived=0 WHERE id=:id";
+        $res = $this->db->prepare($sql);
+        $res->bindParam(":id", $id);
+        $res->execute();
+       
+
+    }
+    
 
     public function getTotalArticleArchive()
     {

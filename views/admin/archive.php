@@ -64,14 +64,19 @@
                       <td><?php echo $article['category_name'] ?></td>
                       <td>
                         <?php foreach ($article['tags'] as $tag) : ?>
-                          
-                            <?php echo $tag; ?>
-                          
+
+                          <?php echo $tag; ?>
+
                         <?php endforeach; ?>
                       </td>
                       <td>
-                        <a href="/archiveArticle?id=<?php echo $article['wiki_id']; ?>" class="btn btn-sm btn-info text-white"><i class="fa fa-edit"></i> Archive</a>
+                        <?php if ($article['archived'] == 0) : ?>
+                          <a href="/archiveArticle?id=<?php echo $article['wiki_id']; ?>" class="btn btn-sm btn-info text-white"><i class="fa fa-edit"></i> Archive</a>
+                        <?php elseif ($article['archived'] == 1) : ?>
+                          <a href="/deactivateArticle?id=<?php echo $article['wiki_id']; ?>" class="btn btn-sm btn-warning text-white"><i class="fa fa-ban"></i> Désarchiver</a>
+                        <?php endif; ?>
                       </td>
+
                     </tr>
                   <?php endforeach; ?>
                 </tbody>
