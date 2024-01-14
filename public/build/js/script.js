@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function displayError(fieldName, message) {
         var errorMessages = document.getElementById('error-messages');
 
-        // If error messages div does not exist, create and append it
+        // If DIV NOT exists then create IT
         if (!errorMessages) {
             errorMessages = document.createElement('div');
             errorMessages.id = 'error-messages';
